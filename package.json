@@ -1,0 +1,26 @@
+{
+  "name": "s",
+  "version": "1.0.0",
+  "description": "S - Site",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "nuxt build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romansopov/s.git"
+  },
+  "author": "Roman Sopov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/romansopov/s/issues"
+  },
+  "homepage": "https://github.com/romansopov/s#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "nuxt": "^2.2.0"
+  }
+}
