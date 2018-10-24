@@ -1,3 +1,3 @@
 <template>
-  <p>https://github.com/romansopov/s/</p>
+  <nuxt-link to="/login/">Login</nuxt-link>
 </template>
