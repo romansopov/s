@@ -1,25 +1,42 @@
 const express = require('express')
-const { Nuxt, Builder } = require('nuxt')
-
 const app = express()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const config = require('config')
+const { Nuxt, Builder } = require('nuxt')
+const nuxtConfig = require('./nuxt.config.js')
 
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 7000
+const PORT = config.get('port')
 
-// Import and set Nuxt.js options
-const config = require('./nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
-
-const nuxt = new Nuxt(config)
+nuxtConfig.dev = !(process.env.NODE_ENV === 'production')
+const nuxt = new Nuxt(nuxtConfig)
 
 // Start build process in dev mode
-if (config.dev) {
+if (nuxtConfig.dev) {
   const builder = new Builder(nuxt)
   builder.build()
 }
 
+app.get('/test/', (req, res) => {
+  res.send('test')
+})
+
 // Give nuxt middleware to express
 app.use(nuxt.render)
 
-// Start express server
-app.listen(port, host)
+// Socket.io (test messages)
+const messages = []
+io.on('connection', (socket) => {
+  socket.on('last-messages', function (fn) {
+    fn(messages.slice(-50))
+  })
+  socket.on('send-message', function (message) {
+    messages.push(message)
+    socket.broadcast.emit('new-message', message)
+  })
+})
+
+// Run
+http.listen(PORT, () => {
+  console.log(`listening on localhost:${PORT}`)
+})

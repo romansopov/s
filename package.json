@@ -20,7 +20,16 @@
   "homepage": "https://github.com/romansopov/s#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "config": "^2.0.1",
     "express": "^4.16.4",
-    "nuxt": "^2.2.0"
+    "express-session": "^1.15.6",
+    "nuxt": "^2.2.0",
+    "passport-custom": "^1.0.5",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "passport-vkontakte": "^0.3.2",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1"
   }
 }
