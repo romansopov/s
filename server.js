@@ -3,11 +3,15 @@ const app = express()
 const http = require('http').Server(app)
 const io = require('socket.io')(http)
 const config = require('config')
+const bodyParser = require('body-parser')
+const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
 const { Nuxt, Builder } = require('nuxt')
 const nuxtConfig = require('./nuxt.config.js')
 
 const PORT = config.get('port')
 
+// Nuxt config
 nuxtConfig.dev = !(process.env.NODE_ENV === 'production')
 const nuxt = new Nuxt(nuxtConfig)
 
@@ -17,11 +21,23 @@ if (nuxtConfig.dev) {
   builder.build()
 }
 
+// Body parser
+app.use(bodyParser.json())
+
+// Session config
+app.use(session({
+  store: new RedisStore(),
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Router
 app.get('/test/', (req, res) => {
   res.send('test')
 })
 
-// Give nuxt middleware to express
+// Nuxt middleware
 app.use(nuxt.render)
 
 // Socket.io (test messages)

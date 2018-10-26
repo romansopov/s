@@ -3,10 +3,6 @@ import express from 'express'
 // Create express router
 const router = express.Router()
 
-// Transform req & res to have the same API as express
-// So we can use res.status() & res.json()
-const app = express()
-
 // Add POST - /api/login
 router.post('/login', (req, res) => {
   if (req.body.username === 'demo' && req.body.password === 'demo') {
