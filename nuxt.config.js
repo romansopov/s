@@ -8,8 +8,5 @@ module.exports = {
   },
   css: [
     '~/assets/css/kube.css'
-  ],
-  serverMiddleware: [
-    '~/api'
   ]
 }

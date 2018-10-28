@@ -8,6 +8,7 @@ const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const { Nuxt, Builder } = require('nuxt')
 const nuxtConfig = require('./nuxt.config.js')
+const sharedsession = require('express-socket.io-session')
 
 const PORT = config.get('port')
 
@@ -24,17 +25,38 @@ if (nuxtConfig.dev) {
 // Body parser
 app.use(bodyParser.json())
 
-// Session config
-app.use(session({
+const middlewareSession = session({
   store: new RedisStore(),
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false
-}));
+  resave: true,
+  saveUninitialized: true
+})
+
+// Session config
+io.use(sharedsession(middlewareSession, {
+  autoSave: true
+}))
+app.use(middlewareSession)
 
 // Router
 app.get('/test/', (req, res) => {
   res.send('test')
+})
+
+// Add POST - /api/login
+app.post('/api/login', (req, res) => {
+  console.log(req.sessionID)
+  if (req.body.username === 'demo' && req.body.password === 'demo') {
+    req.session.authUser = { username: 'demo' }
+    return res.json({ username: 'demo' })
+  }
+  res.status(401).json({ message: 'Bad credentials' })
+})
+
+// Add POST - /api/logout
+app.post('/api/logout', (req, res) => {
+  delete req.session.authUser
+  res.json({ ok: true })
 })
 
 // Nuxt middleware
@@ -43,10 +65,13 @@ app.use(nuxt.render)
 // Socket.io (test messages)
 const messages = []
 io.on('connection', (socket) => {
+  console.log(socket.handshake.sessionID)
+  console.log(socket.handshake.session)
   socket.on('last-messages', function (fn) {
     fn(messages.slice(-50))
   })
   socket.on('send-message', function (message) {
+    console.log(socket.handshake.session)
     messages.push(message)
     socket.broadcast.emit('new-message', message)
   })
