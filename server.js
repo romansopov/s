@@ -33,6 +33,13 @@ const middlewareSession = session({
 })
 
 // Session config
+io.use((socket, next) => {
+  console.log('io.use', socket)
+  const data = socket.handshake || socket.request
+  console.log(data)
+  next()
+})
+
 io.use(sharedsession(middlewareSession, {
   autoSave: true
 }))
@@ -65,13 +72,13 @@ app.use(nuxt.render)
 // Socket.io (test messages)
 const messages = []
 io.on('connection', (socket) => {
-  console.log(socket.handshake.sessionID)
-  console.log(socket.handshake.session)
+  // console.log(socket.handshake.sessionID)
+  // console.log(socket.handshake.session)
   socket.on('last-messages', function (fn) {
     fn(messages.slice(-50))
   })
   socket.on('send-message', function (message) {
-    console.log(socket.handshake.session)
+    console.log(socket.handshake)
     messages.push(message)
     socket.broadcast.emit('new-message', message)
   })

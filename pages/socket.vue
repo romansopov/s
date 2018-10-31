@@ -3,6 +3,8 @@
         <ul class="pages">
             <li class="chat page">
                 <div class="chatArea">
+                    <p>{{ $store.state.authUser.username }}!</p>
+                    <p>SID: {{ $store.state.sessionId}}</p>
                     <ul ref="messages" class="messages">
                         <li v-for="(message, index) in messages" :key="index" class="message">
                             <i :title="message.date">{{ message.date.split('T')[1].slice(0, -2) }}</i>: {{ message.text }}
@@ -16,21 +18,27 @@
 </template>
 
 <script>
-  import socket from '~/plugins/socket.io'
+  import io from '~/plugins/socket.io'
+  let socket = null
 
   export default {
-    asyncData(context, callback) {
-      socket.emit('last-messages', function (messages) {
-        callback(null, {
-          messages,
-          message: ''
-        })
-      })
+
+    data() {
+      return {
+        message: '',
+        messages: []
+      }
     },
+
     watch: {
       'messages': 'scrollToBottom'
     },
     beforeMount() {
+      socket = io('http://127.0.0.1:7000', {
+        query: {
+          token: this.$store.state.sessionId
+        }
+      })
       socket.on('new-message', (message) => {
         this.messages.push(message)
       })
@@ -47,6 +55,7 @@
         }
         this.messages.push(message)
         this.message = ''
+        console.log(socket)
         socket.emit('send-message', message)
       },
       scrollToBottom() {
