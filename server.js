@@ -6,44 +6,31 @@ const config = require('config')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
-const { Nuxt, Builder } = require('nuxt')
-const nuxtConfig = require('./nuxt.config.js')
-const sharedsession = require('express-socket.io-session')
+const sessionStore = new RedisStore()
+const nuxt = require('./nuxt')
 
 const PORT = config.get('port')
-
-// Nuxt config
-nuxtConfig.dev = !(process.env.NODE_ENV === 'production')
-const nuxt = new Nuxt(nuxtConfig)
-
-// Start build process in dev mode
-if (nuxtConfig.dev) {
-  const builder = new Builder(nuxt)
-  builder.build()
-}
 
 // Body parser
 app.use(bodyParser.json())
 
 const middlewareSession = session({
-  store: new RedisStore(),
+  store: sessionStore,
   secret: 'keyboard cat',
   resave: true,
   saveUninitialized: true
 })
+app.use((req, res, next) => {
+  middlewareSession(req, res, next)
+})
 
 // Session config
 io.use((socket, next) => {
-  console.log('io.use', socket)
+  console.log('io.use', sessionStore)
   const data = socket.handshake || socket.request
-  console.log(data)
+  // console.log(data)
   next()
 })
-
-io.use(sharedsession(middlewareSession, {
-  autoSave: true
-}))
-app.use(middlewareSession)
 
 // Router
 app.get('/test/', (req, res) => {
@@ -52,7 +39,7 @@ app.get('/test/', (req, res) => {
 
 // Add POST - /api/login
 app.post('/api/login', (req, res) => {
-  console.log(req.sessionID)
+  // console.log(req.sessionID)
   if (req.body.username === 'demo' && req.body.password === 'demo') {
     req.session.authUser = { username: 'demo' }
     return res.json({ username: 'demo' })
@@ -66,8 +53,8 @@ app.post('/api/logout', (req, res) => {
   res.json({ ok: true })
 })
 
-// Nuxt middleware
-app.use(nuxt.render)
+// Nuxt
+app.use(nuxt)
 
 // Socket.io (test messages)
 const messages = []
