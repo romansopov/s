@@ -7,6 +7,7 @@ module.exports = {
     ]
   },
   css: [
-    '~/assets/css/kube.css'
+    '~/assets/css/kube.css',
+    '~/assets/css/site.css'
   ]
 }
