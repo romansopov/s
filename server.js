@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 
 // Session config
 io.use((socket, next) => {
-  console.log('io.use', sessionStore)
+  // console.log('io.use', sessionStore)
   const data = socket.handshake || socket.request
   // console.log(data)
   next()
