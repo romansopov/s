@@ -11,9 +11,9 @@
                     <b class="is-logo">S.Site</b>
                     <a href="#" class="nav-toggle is-push-right-mobile is-shown-mobile icon-kube-menu"
                        data-kube="toggle"
-                       title="Menu" data-target="#navbar" data-loaded="true"></a>
+                       title="Menu" data-target="#navbar-mobile" data-loaded="true"></a>
                 </div>
-                <div id="navbar" class="is-navbar is-hidden-mobile">
+                <div class="is-navbar is-hidden-mobile">
                     <nav>
                         <ul>
                             <li>
@@ -41,6 +41,30 @@
                         </ul>
                     </nav>
                 </div>
+                <div id="navbar-mobile" class="is-navbar is-hidden">
+                    <nav>
+                        <ul>
+                            <li>
+                                <nuxt-link to="/page-1/">Page 1</nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/page-2/">Page 2</nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/page-3/">Page 3</nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/page-4/">Page 4</nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/page-5/">Page 5</nuxt-link>
+                            </li>
+                            <li>
+                                <nuxt-link to="/console/">Console</nuxt-link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
 
@@ -61,6 +85,7 @@
   export default {
     beforeMount() {
       // $K.init()
+      /*
       $K.init();
       (function ($K) {
         console.log($K)
@@ -80,6 +105,7 @@
           }
         });
       })(Kube);
+      */
     },
     methods: {
       popup () {
