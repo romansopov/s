@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!--
-<nuxt-link to="/login/">Login</nuxt-link>
-<button @click="popup">Popup</button>
-<div id="mymodal" class="is-hidden">...</div>
--->
     <Header></Header>
 
     <div class="is-wrapper">
@@ -28,16 +23,6 @@
   import Footer from '../components/Footer'
 
   export default {
-
-    components: { Header, Footer },
-
-    methods: {
-      popup() {
-        $K.app.modal.open({
-          target: '#mymodal',
-          title: 'My Modal'
-        })
-      }
-    }
+    components: { Header, Footer }
   }
 </script>
