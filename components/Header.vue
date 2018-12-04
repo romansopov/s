@@ -23,7 +23,7 @@
               <nuxt-link to="/page-4/">Page 4</nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/page-5/">Page 5</nuxt-link>
+              <nuxt-link to="/products/">Products</nuxt-link>
             </li>
           </ul>
         </nav>
@@ -54,7 +54,7 @@
               <nuxt-link to="/page-4/">Page 4</nuxt-link>
             </li>
             <li>
-              <nuxt-link to="/page-5/">Page 5</nuxt-link>
+              <nuxt-link to="/products/">Products</nuxt-link>
             </li>
             <li>
               <nuxt-link to="/cart/">Cart</nuxt-link>

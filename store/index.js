@@ -1,10 +1,53 @@
 'use strict'
 
+import _ from 'lodash'
 import axios from 'axios'
 
 export const state = () => ({
-  authUser: null
+  shop: {
+    count: 0
+  }
 })
+
+export const actions = {
+  nuxtServerInit({commit}, {req}) {
+    console.log('nuxtServerInit', req.session)
+
+    commit('setShopCount', _.get(req.session, 'shop.count', 0))
+  },
+
+  async addProductToCart ({ commit }, data) {
+    try {
+      const { data } = await axios.post('/api/shop/addProductToCart/', data)
+      console.log(data)
+    } catch (error) {
+      console.error(error)
+    }
+  },
+}
+
+export const mutations = {
+  increment: (state) => {
+    state.shop.count++
+  },
+
+  setShopCount: (state, count) => {
+    state.shop.count = count
+  }
+
+}
+
+
+/*
+export const state = () => ({
+  authUser: null,
+  sessionId: null,
+  shop: {
+    count: 0,
+    products: []
+  }
+})
+
 
 export const mutations = {
 
@@ -45,4 +88,7 @@ export const actions = {
     commit('SET_USER', null)
   }
 
+
+
 }
+*/

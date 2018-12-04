@@ -1,4 +1,9 @@
 module.exports = {
+  modules: [
+    ['@nuxtjs/axios', {
+      baseURL: 'http://localhost:7000'
+    }]
+  ],
   head: {
     meta: [
       { charset: 'utf-8' },

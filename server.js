@@ -11,14 +11,12 @@ const nuxt = require('./nuxt')
 
 const PORT = config.get('port')
 
-// Body parser
-app.use(bodyParser.json())
-
 const middlewareSession = session({
   store: sessionStore,
   secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60000 }
 })
 app.use((req, res, next) => {
   middlewareSession(req, res, next)
@@ -32,6 +30,13 @@ io.use((socket, next) => {
   next()
 })
 
+// Body parser
+app.use(bodyParser.json())
+
+// Routers
+require('./api')(app)
+
+/*
 // Router
 app.get('/test/', (req, res) => {
   res.send('test')
@@ -52,6 +57,7 @@ app.post('/api/logout', (req, res) => {
   delete req.session.authUser
   res.json({ ok: true })
 })
+*/
 
 // Nuxt
 app.use(nuxt)
