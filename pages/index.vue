@@ -14,6 +14,16 @@
         </div>
         <div class="is-content">
           content
+          <div class="is-row">
+            <carousel :perPage=1 :perPageCustom="[[1024, 1]]">
+              <slide>
+                Slide 1 Content
+              </slide>
+              <slide>
+                Slide 2 Content
+              </slide>
+            </carousel>
+          </div>
         </div>
       </div>
     </div>
@@ -24,12 +34,11 @@
 </template>
 
 <script>
-  import Header from '../components/Header'
-  import Footer from '../components/Footer'
+  import { Header, Footer, Carousel, Slide } from '@/components'
 
   export default {
 
-    components: { Header, Footer },
+    components: { Header, Footer, Carousel, Slide },
 
     methods: {
       popup() {
