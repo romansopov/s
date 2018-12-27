@@ -79,5 +79,5 @@ io.on('connection', (socket) => {
 
 // Run
 http.listen(PORT, () => {
-  console.log(`listening on localhost:${PORT}`)
+  console.log(`http://localhost:${PORT}`)
 })
