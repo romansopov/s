@@ -1,7 +1,7 @@
 {
   "name": "s",
   "version": "1.0.0",
-  "description": "S - Site",
+  "description": "S.Site",
   "main": "server.js",
   "scripts": {
     "dev": "node $NODE_DEBUG_OPTION server.js",
@@ -31,7 +31,6 @@
     "express-socket.io-session": "^1.3.5",
     "lodash": "^4.17.11",
     "nuxt": "^2.3.4",
-    "nuxt-edge": "^2.4.0-25732112.9c15c18",
     "passport-custom": "^1.0.5",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
@@ -41,7 +40,8 @@
     "vue-carousel": "^0.16.1",
     "vue-meta": "^1.5.6",
     "vue-no-ssr": "^1.1.0",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vue2-editor": "^2.6.6"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
