@@ -8,7 +8,7 @@
           left sidebar
         </div>
         <div class="is-content">
-          <button @click="increment">
+          <button class="button is-destructive" @click="increment">
             {{ $store.state.shop.count }}
           </button>
           <ul>

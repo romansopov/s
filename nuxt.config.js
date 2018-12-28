@@ -19,9 +19,7 @@ module.exports = {
     }]
   },
   css: [
-    '~/assets/css/kube.css',
-    '~/assets/themes/kube.theme.css',
-    '~/assets/css/site.css'
-  ],
+    '~/assets/css/s.css'
+  ]
   // plugins: [{ src: '~plugins/vue-carousel', ssr: false }]
 }
