@@ -1,9 +1,7 @@
 module.exports = {
-  apps : [{
+  apps: [{
     name: 's.site',
     script: 'server.js',
-    exec_mode : 'cluster',
-    instances : 'max',
     autorestart: true,
     watch: false,
     max_memory_restart: '1G',
@@ -14,4 +12,4 @@ module.exports = {
       NODE_ENV: 'production'
     }
   }]
-};
+}

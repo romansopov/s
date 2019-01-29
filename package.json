@@ -4,9 +4,9 @@
   "description": "S.Site",
   "main": "server.js",
   "scripts": {
-    "dev": "node $NODE_DEBUG_OPTION server.js",
-    "build": "nuxt build",
-    "start": "pm2 start ecosystem.config.js --env=production",
+    "dev": "npm run build-css && node $NODE_DEBUG_OPTION server.js",
+    "build": "npm run build-css && nuxt build",
+    "start": "npm run build && pm2 start ecosystem.config.js --env=production",
     "stop": "pm2 stop ecosystem.config.js",
     "restart": "pm2 restart ecosystem.config.js --env=production",
     "build-css": "node-sass assets/sass/themes/s.theme.scss assets/css/s.css"
